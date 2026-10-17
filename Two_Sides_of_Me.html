@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="Ayesha’s Two Sides of Me — switch between her sweet Good Side and her funny, savage Evil Side.">
+<title>Ayesha | Two Sides of Me</title>
+<style>
+:root{color-scheme:dark;--bg:#080b16;--panel:rgba(255,255,255,.075);--line:rgba(255,255,255,.13);--text:#f6f7ff;--muted:#aeb5cd;--accent:#72e5d1;--glow:rgba(76,221,200,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden;transition:background .6s ease}
+body::before,body::after{content:"";position:fixed;pointer-events:none;z-index:-1;filter:blur(70px);opacity:.65;transition:all .7s ease}
+body::before{width:45vw;height:45vw;max-width:520px;max-height:520px;top:-12%;left:-10%;background:var(--glow);border-radius:50%}body::after{width:42vw;height:42vw;max-width:480px;max-height:480px;right:-12%;bottom:-10%;background:rgba(139,92,246,.17);border-radius:50%}
+.wrap{width:min(1120px,calc(100% - 32px));margin:auto;padding:24px 0 30px}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:34px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.04em;font-size:1.05rem}.brand-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,#65e8d3,#9d8cff);color:#0a1020;font-size:1.2rem;box-shadow:0 8px 28px var(--glow)}
+.pill{border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:.78rem;white-space:nowrap}
+.hero{text-align:center;padding:18px 0 30px}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:.72rem;color:var(--accent);font-weight:800}
+h1{font-size:clamp(2.6rem,8vw,5.4rem);line-height:.98;letter-spacing:-.07em;margin:16px 0}.gradient-text{background:linear-gradient(90deg,#fff,#8be8dc 45%,#b5a0ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{max-width:610px;margin:0 auto;color:var(--muted);line-height:1.7;font-size:1rem}
+.switcher{display:flex;justify-content:center;gap:8px;margin:26px auto 0;padding:7px;border:1px solid var(--line);background:rgba(0,0,0,.24);border-radius:18px;width:min(100%,430px)}
+.switch-btn{flex:1;border:0;border-radius:12px;padding:13px 12px;color:var(--muted);background:transparent;font:inherit;font-weight:800;cursor:pointer;transition:transform .2s,background .35s,color .35s,box-shadow .35s}
+.switch-btn:active{transform:scale(.97)}.switch-btn[aria-pressed="true"]{background:linear-gradient(135deg,#65e8d3,#9be8e0);color:#07131a;box-shadow:0 5px 22px rgba(90,229,211,.22)}
+body.evil .switch-btn[aria-pressed="true"]{background:linear-gradient(135deg,#ff6a7e,#b14cff);color:white;box-shadow:0 5px 24px rgba(255,75,120,.25)}
+.stage{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}
+.visual,.content-card{border:1px solid var(--line);background:var(--panel);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:28px;box-shadow:0 24px 80px rgba(0,0,0,.2)}
+.visual{position:relative;min-height:420px;overflow:hidden;display:grid;place-items:center;padding:26px}
+.orb{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9),rgba(112,229,209,.55) 15%,rgba(112,229,209,.08) 55%,transparent 72%);filter:drop-shadow(0 0 45px var(--glow));animation:float 6s ease-in-out infinite;transition:all .7s ease}
+body.evil .orb{background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.85),rgba(255,89,120,.62) 14%,rgba(164,60,255,.18) 55%,transparent 72%);filter:drop-shadow(0 0 45px rgba(255,70,120,.28))}
+.orbit{position:absolute;width:330px;height:330px;border:1px solid rgba(255,255,255,.2);border-radius:50%;transform:rotate(-22deg) scaleY(.4);animation:spin 18s linear infinite}.orbit.two{width:370px;height:370px;transform:rotate(42deg) scaleY(.4);animation-direction:reverse;border-style:dashed;opacity:.5}
+.symbol{position:relative;font-size:clamp(5rem,17vw,9rem);filter:drop-shadow(0 10px 25px rgba(0,0,0,.25));animation:bob 4s ease-in-out infinite;user-select:none}
+.visual-label{position:absolute;bottom:25px;text-align:center}.visual-label strong{display:block;font-size:1.15rem;letter-spacing:.08em}.visual-label span{display:block;color:var(--muted);font-size:.8rem;margin-top:5px}
+.content-card{padding:clamp(22px,4vw,36px);display:flex;flex-direction:column;justify-content:center;min-height:420px;transition:border-color .5s}
+.mini-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:800}body.evil .mini-label,body.evil .eyebrow{color:#ff829b}
+h2{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;letter-spacing:-.055em;margin:12px 0}.desc{color:var(--muted);line-height:1.75;margin:0 0 22px}
+.traits{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}.trait{font-size:.8rem;padding:8px 11px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04)}
+.quote{border-left:3px solid var(--accent);padding:12px 15px;background:rgba(255,255,255,.045);border-radius:0 14px 14px 0;line-height:1.65;margin-bottom:22px}body.evil .quote{border-left-color:#ff6b8b}
+.actions{display:flex;flex-wrap:wrap;gap:10px}.action-btn{border:1px solid var(--line);border-radius:13px;padding:12px 15px;background:rgba(255,255,255,.06);color:var(--text);font:inherit;font-weight:750;cursor:pointer;transition:transform .2s,background .2s}.action-btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}.action-btn.primary{background:var(--accent);border-color:transparent;color:#07131a}body.evil .action-btn.primary{background:linear-gradient(135deg,#ff6a7e,#b14cff);color:white}
+.extra{margin-top:22px;padding:22px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.035)}\nselect:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}#generatedReply{min-height:52px}.extra h3{margin:0 0 8px;font-size:1.15rem}.extra p{margin:0;color:var(--muted);line-height:1.65}
+.footer{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:.78rem;padding:25px 2px 0}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#111827;border:1px solid var(--line);padding:12px 16px;border-radius:14px;box-shadow:0 10px 35px #0006;transition:.3s;z-index:5;text-align:center;width:max-content;max-width:calc(100% - 30px)}.toast.show{opacity:1;transform:translate(-50%,0)}
+.spark{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:.75;animation:twinkle 3s ease-in-out infinite}body.evil .spark{background:#ff6687}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.04)}}@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}@keyframes spin{to{rotate:360deg}}@keyframes twinkle{0%,100%{transform:scale(.5);opacity:.2}50%{transform:scale(1.5);opacity:1}}
+@media(max-width:760px){.wrap{width:min(100% - 22px,560px);padding-top:16px}header{margin-bottom:24px}.pill{font-size:.68rem}.stage{grid-template-columns:1fr;gap:14px}.visual{min-height:280px;order:0}.content-card{min-height:auto;order:1}.orb{width:190px;height:190px}.orbit{width:250px;height:250px}.orbit.two{width:285px;height:285px}.symbol{font-size:6.5rem}.visual-label{bottom:18px}.hero{padding-bottom:22px}.subtitle{font-size:.92rem}.footer{align-items:flex-start;flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><div class="brand"><div class="brand-mark">◐</div><span>AYESHA’S <span style="color:var(--muted);font-weight:500">/ TWO SIDES</span></span></div><div class="pill">✦ YOUR MOOD, YOUR CHOICE</div></header>
+<section class="hero">
+<div class="eyebrow">ONE PERSON · TWO ENERGIES</div><h1><span class="gradient-text">Two Sides</span><br>of Me.</h1>
+<p class="subtitle">Meet Ayesha’s two sides: sweet, caring and peaceful… or funny, fiery and full of attitude. Pick a side and see what she might say. 😇😈</p>
+<div class="switcher" role="group" aria-label="Choose a personality"><button class="switch-btn" id="goodBtn" aria-pressed="true" type="button">😇 Good Side</button><button class="switch-btn" id="evilBtn" aria-pressed="false" type="button">😈 Evil Side</button></div>
+</section>
+<main class="stage" id="personalityStage">
+<section class="visual" aria-label="Personality artwork"><div class="orb"></div><div class="orbit"></div><div class="orbit two"></div><span class="spark" style="top:18%;left:18%"></span><span class="spark" style="top:28%;right:16%;animation-delay:.8s"></span><span class="spark" style="bottom:28%;left:20%;animation-delay:1.4s"></span><span class="spark" style="bottom:34%;right:22%;animation-delay:2s"></span><div class="symbol" id="symbol" aria-hidden="true">😇</div><div class="visual-label"><strong id="visualTitle">THE LIGHT WITHIN</strong><span id="visualSub">Calm energy · Kind intentions</span></div></section>
+<section class="content-card" aria-live="polite"><div class="mini-label" id="kicker">SIDE 01 / THE GOOD</div><h2 id="title">Kindness is a superpower.</h2><p class="desc" id="description">You choose patience over drama, respect over ego, and understanding over anger. Being kind doesn't mean being weak — it means knowing your strength.</p><div class="traits" id="traits"><span class="trait">Kind-hearted</span><span class="trait">Patient</span><span class="trait">Respectful</span><span class="trait">Peaceful</span></div><div class="quote" id="quote">“I can stay kind and still stand up for myself.”</div><div class="actions"><button class="action-btn primary" id="quoteBtn" type="button">✨ Get a new line</button><button class="action-btn" id="copyBtn" type="button">▣ Copy my line</button></div></section>
+</main>
+<section class="extra" id="replyLab">
+  <div class="mini-label">AYESHA’S REPLY LAB</div>
+  <h3 style="margin-top:10px">What happened? 😏</h3>
+  <p style="margin-bottom:15px">Choose a situation and Ayesha’s selected side will come up with a reply.</p>
+  <label for="situation" style="display:block;font-weight:750;margin-bottom:8px">Pick a situation</label>
+  <select id="situation" style="width:100%;max-width:520px;padding:13px 14px;border-radius:13px;border:1px solid var(--line);background:#151a2a;color:var(--text);font:inherit;margin-bottom:14px">
+    <option value="tease">Someone is teasing me</option>
+    <option value="ignored">Someone is ignoring my messages</option>
+    <option value="attitude">Someone is showing attitude</option>
+    <option value="argument">Someone wants to argue</option>
+    <option value="compliment">Someone gives me a compliment</option>
+    <option value="late">My friend is late again</option>
+    <option value="boring">Someone says I’m boring</option>
+    <option value="sorry">Someone says sorry</option>
+  </select>
+  <div class="actions" style="margin-bottom:14px">
+    <button class="action-btn primary" id="generateReply" type="button">✨ Generate Ayesha’s reply</button>
+    <button class="action-btn" id="copyReply" type="button">▣ Copy reply</button>
+  </div>
+  <div class="quote" id="generatedReply" aria-live="polite" style="margin-bottom:0">Choose a situation, then generate a reply for Ayesha’s Good or Evil Side.</div>
+</section>
+<section class="extra"><h3 id="extraTitle">🌿 A little reminder</h3><p id="extraText">Ayesha can be sweet or savage, but she’s always in control. Funny comebacks are best when they don’t cross into real hurt.</p></section>
+<footer class="footer"><span>Made especially for Ayesha 💖</span><span>Sweet when she wants. Savage when she needs. ✦</span></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(()=>{const data={
+good:{symbol:"😇",visualTitle:"THE LIGHT WITHIN",visualSub:"Calm energy · Kind intentions",kicker:"SIDE 01 / THE GOOD",title:"Kindness is a superpower.",description:"You choose patience over drama, respect over ego, and understanding over anger. Being kind doesn't mean being weak — it means knowing your strength.",traits:["Kind-hearted","Patient","Respectful","Peaceful"],quotes:["“I can stay kind and still stand up for myself.”","“A calm mind is stronger than a loud voice.”","“Respect costs nothing, but means everything.”","“I choose peace, not because I’m scared, but because I’m wise.”","“A good heart can still have strong boundaries.”"],extraTitle:"🌿 The good-side reminder",extraText:"Take a breath, listen first, and speak with respect. You can set a boundary without hurting someone.",
+replies:{
+tease:"“Haha, nice try! You’ll need better material than that. 😌”",
+ignored:"“No worries, reply whenever you’re free. I’ve got my own life too. 🌿”",
+attitude:"“Let’s keep it respectful — we can both talk without the extra drama.”",
+argument:"“I’d rather solve the problem than turn it into a competition.”",
+compliment:"“Aww, thank you! That’s really sweet of you. 💖”",
+late:"“It’s okay, but next time let’s try being on time together. 😊”",
+boring:"“Maybe I’m just not performing for everybody. 😂”",
+sorry:"“Thanks for saying sorry. Let’s move forward and do better.”"
+}},
+evil:{symbol:"😈",visualTitle:"THE CHAOS WITHIN",visualSub:"Bold energy · Unfiltered attitude",kicker:"SIDE 02 / THE EVIL",title:"Quiet… until I’m not.",description:"This side is bold, sarcastic, impatient, and full of attitude. It loves a dramatic comeback — but real power is keeping control, even when you’re angry.",traits:["Savage mood","Big attitude","Quick comebacks","No-nonsense"],quotes:["“I’m not arguing. I’m explaining why I’m right.”","“My silence is a reply. Read it carefully.”","“I match energy — I don’t chase it.”","“Not every opinion deserves my reaction.”","“I’m calm. Don’t make it a plot twist.”"],extraTitle:"🔥 The evil-side reminder",extraText:"Bring the attitude, not the harm. A sharp reply can be funny and firm without threats, bullying, or cruelty.",
+replies:{
+tease:"“That joke needs an update. Want to try again? 💅😂”",
+ignored:"“It’s okay, I wasn’t waiting by the phone. Main character things. 😌”",
+attitude:"“That’s a lot of attitude for a conversation nobody’s competing in. 💅”",
+argument:"“I came for peace, but apparently you brought a whole debate show. 😂”",
+compliment:"“I know, but I appreciate you noticing. 😌✨”",
+late:"“You’re not late anymore — you’re officially part of tomorrow. 😂⏰”",
+boring:"“And yet you’re still here talking to me. Interesting. 😏”",
+sorry:"“Apology accepted. Don’t make this a recurring episode. 😌”"
+}}};
+let side="good",idx={good:0,evil:0};const $=id=>document.getElementById(id);
+function render(){const d=data[side];document.body.classList.toggle("evil",side==="evil");$("goodBtn").setAttribute("aria-pressed",String(side==="good"));$("evilBtn").setAttribute("aria-pressed",String(side==="evil"));["symbol","visualTitle","visualSub","kicker","title","description","extraTitle","extraText"].forEach(k=>$(k).textContent=d[k]);$("traits").replaceChildren(...d.traits.map(t=>{const e=document.createElement("span");e.className="trait";e.textContent=t;return e}));$("quote").textContent=d.quotes[idx[side]];document.querySelector('meta[name="theme-color"]').content=side==="good"?"#0b1020":"#160914"}
+function toast(s){const e=$("toast");e.textContent=s;e.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>e.classList.remove("show"),2200)}
+$("quoteBtn").addEventListener("click",()=>{idx[side]=(idx[side]+1)%data[side].quotes.length;render()});
+$("copyBtn").addEventListener("click",async()=>{const s=$("quote").textContent;try{await navigator.clipboard.writeText(s);toast("Line copied ✨")}catch(e){const t=document.createElement("textarea");t.value=s;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();const ok=document.execCommand("copy");t.remove();toast(ok?"Line copied ✨":"Copy not available — select the line to copy.")}});
+function generateReply(){const situation=$("situation").value;const d=data[side];$("generatedReply").textContent=d.replies[situation]||d.quotes[0];}
+$("generateReply").addEventListener("click",generateReply);
+$("copyReply").addEventListener("click",async()=>{const text=$("generatedReply").textContent;try{await navigator.clipboard.writeText(text);toast("Ayesha’s reply copied ✨")}catch(e){const t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();const ok=document.execCommand("copy");t.remove();toast(ok?"Ayesha’s reply copied ✨":"Copy not available — select the reply to copy.")}});
+$("goodBtn").addEventListener("click",()=>{side="good";render();generateReply()});
+$("evilBtn").addEventListener("click",()=>{side="evil";render();generateReply()});
+render();generateReply()})();
+</script>
+</body>
+</html>
